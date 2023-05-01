@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animation_widget/seconda.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 8, 247)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Navigation'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 8, 247)),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(title: 'Flutter animation'),
+        routes: {"/seconda": (context) => const seconda()});
   }
 }
 
@@ -49,19 +50,45 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Prova animazioni',
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/seconda');
+              },
+              child: SizedBox(
+                height: 200,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: const Column(
+                    children: [
+                      Hero(tag: 'immagine copertina',
+                      child: Image(image: AssetImage('assets/images/logo.png'))),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Prova Hero Animation",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            AnimatedContainer(
-              width: _width,
-              height: _heigth,
-              color: _color,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOutCubicEmphasized,
-            ),
+            )
+
+            //   child: Text(
+            //     'Prova animazioni',
+            //   ),
+            // ),
+            // AnimatedContainer(
+            //   width: _width,
+            //   height: _heigth,
+            //   color: _color,
+            //   duration: const Duration(seconds: 1),
+            //   curve: Curves.easeInOutCubicEmphasized,
           ],
         ),
       ),
